@@ -5,6 +5,7 @@
 #include "UFNBlendModule.h"
 #include "UFNScaleBiasModule.h"
 #include "UFNAddModule.h"
+#include "UFNInvertModule.h"
 #include "UFNConstantModule.h"
 #include "UFNSplineGenerator.h"
 #include "UFNWarpModule.h"
@@ -263,6 +264,20 @@ UUFNNoiseGenerator* UUFNBlueprintFunctionLibrary::CreateShoreFilterModule(UObjec
 	newShoreFilterModule->myThreshhold = threshold;
 
 	return newShoreFilterModule;
+}
+
+UUFNNoiseGenerator* UUFNBlueprintFunctionLibrary::CreateInvertModule(UObject* outer, UUFNNoiseGenerator* inputModule)
+{
+	if (!(outer && inputModule))
+	{
+		return nullptr;
+	}
+
+	UUFNInvertModule* noiseGen = NewObject<UUFNInvertModule>(outer);
+
+	noiseGen->inputModule = inputModule;
+
+	return noiseGen;
 }
 
 UUFNBlueprintFunctionLibrary::UUFNBlueprintFunctionLibrary(const class FObjectInitializer& obj)
